@@ -1,0 +1,79 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.ntvs*
+*.njsproj
+*.sln.cache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+out/
+Debug/
+Release/
+
+# User-specific files
+*.rsuser
+*.vscode/
+*.tmproj
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.ide/
+*.suo
+*.user
+*.sln*
+*.swp
+*.snt
+*.DS_Store
+
+# Logs
+logs/
+*.log
+*.tlog
+
+# NuGet
+*.nupkg
+packages/
+!packages/repositories.config
+project.assets.json
+nuget.config
+nuget.exe
+nuget.spec
+
+# Entity Framework
+migrations/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Temporary files
+*.tmp
+*.bak
+*.old
+
+# Publish output
+publish/
+wwwroot/
+appsettings*.json
+
+# Sensitive settings (если используете локальные файлы конфигурации)
+secrets.json
+.env
+.env.local
+.env.*.local
+
+# Coverage
+coverage/
+*.coverage
+TestResults/
+
+# SQLite database
+*.db
+*.db-shm
+*.db-wal
