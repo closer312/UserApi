@@ -15,6 +15,8 @@ public class CompetenceService : ICompetenceService
         _context = context;
         _mapper = mapper;
     }
+
+
     public async Task<long> AddCompetenceAsync(string name, string description)
     {
         var competence = new Competence
@@ -24,7 +26,23 @@ public class CompetenceService : ICompetenceService
         };
         await _context.Competences.AddAsync(competence);
         await _context.SaveChangesAsync();
+
         return competence.Id;
+    }
+
+    public async Task AddCompetenceToUserAsync(AddCompetenceToUserRequest request)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == request.UserId);
+        if (user == null)
+            throw new Exception("Пользователь не найден в базе данных.");
+
+        var competence = await _context.Competences.FirstOrDefaultAsync(x => x.Id == request.CompetenceId);
+        if (competence == null)
+            throw new Exception("Компетенция не найдена в базе данных.");
+
+        user.Competences.Add(competence);
+        await _context.SaveChangesAsync();
+
     }
 
     public async Task DeleteCompetenceAsync(int id)
@@ -32,6 +50,7 @@ public class CompetenceService : ICompetenceService
         var competence = await _context.Competences.FirstOrDefaultAsync(x => x.Id == id);
         if (competence == null)
             throw new Exception("Компетенция не найдена в базе данных.");
+
         _context.Competences.Remove(competence);
         await _context.SaveChangesAsync();
     }
@@ -48,7 +67,9 @@ public class CompetenceService : ICompetenceService
     public async Task<List<CompetenceDto>> GetCompetencesAsync()
     {
         var competences = await _context.Competences.ToListAsync();
+
         var result = _mapper.Map<List<CompetenceDto>>(competences);
+
         return result;
     }
 
@@ -57,6 +78,8 @@ public class CompetenceService : ICompetenceService
         var competence = await _context.Competences.FirstOrDefaultAsync(x => x.Id == competenceDto.Id);
         if (competence == null)
             throw new Exception("Компетенция не найдена в базе данных.");
+
         competence = _mapper.Map(competenceDto, competence);
+        await _context.SaveChangesAsync();
     }
 }

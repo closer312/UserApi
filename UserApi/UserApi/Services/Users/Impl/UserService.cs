@@ -20,6 +20,7 @@ public class UserService : IUserService
     public async Task<UserDto> GetUserAsync(int id)
     {
         var user = await _context.Users
+            .Include(x => x.Competences)
             .Include(x => x.UserFields).ThenInclude(x => x.Field)
             .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -49,7 +50,9 @@ public class UserService : IUserService
     public async Task<List<UserDto>> GetUsersAsync()
     {
         var users = await _context.Users
-            .Include(x => x.UserFields).ThenInclude(x => x.Field).ToListAsync();
+            .Include(x => x.Competences)
+            .Include(x => x.UserFields)
+                .ThenInclude(x => x.Field).ToListAsync();
         var result = _mapper.Map<List<UserDto>>(users);
         return result;
     }

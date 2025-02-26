@@ -9,4 +9,5 @@ public interface ICompetenceService
     Task<CompetenceDto> GetCompetenceAsync(int id);
     Task UpdateCompetenceAsync(CompetenceDto competenceDto);
     Task DeleteCompetenceAsync(int id);
+    Task AddCompetenceToUserAsync(AddCompetenceToUserRequest request);
 }

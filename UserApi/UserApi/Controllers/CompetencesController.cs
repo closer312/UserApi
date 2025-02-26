@@ -43,5 +43,11 @@ public class CompetencesController : ControllerBase
         await _competenceService.DeleteCompetenceAsync(id);
         return Ok();
     }
+    [HttpPost("add-competence-to-user")]
+    public async Task<IActionResult> AddCompetenceToUser(AddCompetenceToUserRequest request)
+    {
+        await _competenceService.AddCompetenceToUserAsync(request);
+        return Ok();
+    }
 
 }
